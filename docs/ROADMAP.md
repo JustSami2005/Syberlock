@@ -1,35 +1,26 @@
-# Roadmap
+# Syberlock roadmap
 
-This is a living plan; it is not a release schedule.
+This roadmap tracks practical milestones for the desktop password manager.
 
-## Stage 1 — Prototype
+## Desktop vault
 
-- [x] Define offline-first desktop product scope.
-- [x] Select Python / PyQt5 / SQLite.
-- [x] Select Argon2id and AES-GCM for the cryptographic design.
-- [ ] Verify every basic vault action against the implementation and automated tests.
-- [ ] Review login/unlock failure modes.
+- [x] Define the offline-first application architecture.
+- [x] Build the Python / PyQt5 interface and SQLite storage.
+- [x] Add vault operations for storing and managing credentials.
+- [x] Integrate Argon2id for key derivation and AES-GCM for password encryption.
+- [ ] Add automated tests for unlocking, encryption/decryption, wrong passwords, and modified ciphertext.
+- [ ] Improve failure handling and database migration tests.
 
-## Stage 2 — Reliability and security
+## Multi-device support
 
-- [ ] Test AES-GCM round trips and tampering rejection.
-- [ ] Test KDF settings, wrong passwords, and migration behavior.
-- [ ] Check nonce uniqueness and secret-free logging.
-- [ ] Add safe backup/export and recovery design.
-- [ ] Define threat model and perform dependency audit.
-- [ ] Obtain an independent review before real-world password use.
+- [ ] Complete authenticated device pairing.
+- [ ] Implement and test protected data transfer between authorized devices.
+- [ ] Handle pairing failure, lost devices, and revocation.
 
-## Stage 3 — Device support
+## Release preparation
 
-- [ ] Specify an authenticated device enrollment protocol.
-- [ ] Securely transfer vault data between authorized devices.
-- [ ] Test revocation, replay attacks, and network failures.
-
-## Stage 4 — Distribution
-
-- [ ] Test Windows and macOS installers.
-- [ ] Sign distributable binaries as applicable.
-- [ ] Add release notes, support documentation, and update strategy.
-- [ ] Publish only after release gates pass.
-
-A checked design decision **does not** mean the corresponding code has passed a security audit.
+- [ ] Finalize encrypted backup and recovery.
+- [ ] Review cryptographic implementation, dependencies, and threat model.
+- [ ] Obtain an independent security review.
+- [ ] Test packaging and distribution on Windows and macOS.
+- [ ] Release the application after security and reliability checks.
