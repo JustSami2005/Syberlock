@@ -1,30 +1,29 @@
-# Security policy
+# Security
 
-## Current security status
+## Current status
 
-Syberlock is under active development. **It has not undergone an independent security audit.** It must not yet be treated as a production-ready vault or used for real, sensitive, or irreplaceable passwords.
+Syberlock is a desktop password manager **in development**, and it has not received an independent security review. It is not ready to store real passwords.
 
-This repository contains public design documentation; the main application code is private.
+## Current design
 
-## Reporting a vulnerability
+- The vault stores credentials locally in SQLite.
+- Argon2id derives a 32-byte key from the master password and a per-vault random salt.
+- AES-GCM encrypts stored **passwords** and authenticates their ciphertext.
+- A new random 12-byte nonce is generated with `os.urandom(12)` for each encryption and stored separately with the ciphertext.
+- Service names and usernames are currently **not encrypted**.
 
-Please avoid publishing exploitation steps, vaults, keys, passwords, sensitive screenshots, or personal data in public issues.
+For implementation details, see [Architecture](docs/ARCHITECTURE.md).
 
-If a private reporting channel is enabled on this repository, use it. Otherwise, contact the maintainer through a private channel listed on their GitHub profile. If no private channel is available, post a public issue **only to request a private contact method**, without technical vulnerability details.
+## Before release
 
-## Minimum review gates before release
+- Automated tests for incorrect passwords, modified ciphertext, and database errors.
+- Nonce handling and key-management review.
+- Review of plaintext storage, logging, backups, and temporary data.
+- Verification of the future pairing protocol.
+- Dependency audit and independent security review.
 
-- Review threat model and expected security guarantees.
-- Verify Argon2id KDF, key handling, and parameter storage.
-- Verify cryptographically secure nonce generation and uniqueness for AES-GCM.
-- Verify tamper detection and failure handling.
-- Check for accidental plaintext storage, logs, backups, or temporary artifacts.
-- Review dependency supply-chain risk and reproducibility of builds.
-- Review secure pairing separately, if enabled.
-- Test corruption, update, migration, and recovery scenarios.
-- Arrange independent review and fix relevant findings.
-- Only then consider use with real credentials or store publication.
+## Reporting a security issue
 
-## No bug bounty commitment
+Please do **not** share secrets, passwords, vault files, or detailed exploits in public issues. Use GitHub's private vulnerability reporting if enabled; otherwise, ask for a private contact channel without disclosing vulnerability details.
 
-No monetary bug bounty or response-time guarantee is currently offered.
+No bug bounty program is offered at this time.
